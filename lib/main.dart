@@ -4,7 +4,7 @@ import 'notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FlutterLocalNotification.init();
+  await FlutterLocalNotification.init();
   runApp(const MyApp());
 }
 
@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     // 3초 후 권한 요청
     Future.delayed(const Duration(seconds: 3),
         FlutterLocalNotification.requestNotificationPermission());
-
     super.initState();
   }
 
@@ -45,9 +44,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(
-          onPressed: () => FlutterLocalNotification.showNotification(),
-          child: const Text("알림 보내기"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () => FlutterLocalNotification.showNotification(),
+              child: const Text("알림 보내기"),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextButton(
+              onPressed: () => notificationCallback(null),
+              child: const Text("알림 소리 멈추기"),
+            ),
+          ],
         ),
       ),
     );
